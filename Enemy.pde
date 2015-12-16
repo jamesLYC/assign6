@@ -23,12 +23,27 @@ class Enemy{
 
 	boolean isCollideWithFighter()
 	{
+		if (isHit(this.x, this.y, this.enemyImg.width, this.enemyImg.height, fighter.x, fighter.y, fighter.fighterImg.width, fighter.fighterImg.height)) {
+		return true;
+		}
+		return false;
+	}
+
+	boolean isCollideWithBullet(Bullet bullet)
+	{
+		if (isHit(this.x, this.y, this.enemyImg.width, this.enemyImg.height, bullet.x, bullet.y, bullet.bullet.width, bullet.bullet.height)) {
+		return true;
+		}
 		return false;
 	}
 
 	boolean isOutOfBorder()
 	{
-		return false;
+		if(x > 640 || y > 480){
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 

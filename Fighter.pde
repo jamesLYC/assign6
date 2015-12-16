@@ -4,7 +4,6 @@ class Fighter{
 	int y = 0;
 	int type;
 	int speed = 5;
-
 	int hp;
 	Fighter(int hp) {
 		this.fighterImg = loadImage("img/fighter.png");
@@ -29,10 +28,20 @@ class Fighter{
 		if (isMovingRight) {
 			this.move(Direction.RIGHT);	
 		}
-	}
-
+	} 
+	int tmp = 0;//bullet num
 	void shoot() {
-		
+			if(tmp < 5){
+				bullets[tmp] = new Bullet(x,y);
+				tmp++;
+			}else{
+				for(int i = 0; i < tmp ; i++){
+					if(bullets[i] == null || bullets[i].x < 0){
+						bullets[i] = new Bullet(x,y);
+						break ;
+					}
+				}
+			}
 	}
 
 	void move(int direct) {

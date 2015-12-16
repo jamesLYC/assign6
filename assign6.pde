@@ -34,12 +34,12 @@ Background bg;
 FlameMgr flameMgr;
 Treasure treasure;
 HPDisplay hpDisplay;
-
 boolean isMovingUp;
 boolean isMovingDown;
 boolean isMovingLeft;
 boolean isMovingRight;
-
+int bulletCount = 5;
+Bullet[] bullets = new Bullet[bulletCount];
 int time;
 int wait = 4000;
 
@@ -55,7 +55,8 @@ void setup () {
 }
 
 void draw()
-{
+{	
+	
 	if (state == GameState.START) {
 		bg.draw();	
 	}
@@ -80,15 +81,32 @@ void draw()
 					flameMgr.addFlame(enemys[i].x, enemys[i].y);
 					enemys[i]=null;
 				}
-				else if (enemys[i].isOutOfBorder()) {
-					enemys[i]=null;
+				for(int j = 0;j<5;j++){
+					if (bullets[j] != null && enemys[i] != null) {
+						if (enemys[i].isCollideWithBullet(bullets[j])) {
+							flameMgr.addFlame(enemys[i].x, enemys[i].y);
+							bullets[j] = null;
+							enemys[i] = null;
+							}
+						}
+					}
 				}
+		}
+
+		// 這地方應該加入Fighter 血量顯示UI
+		hpDisplay.updateWithFighterHP(fighter.hp);
+		
+		//bullets
+		for(int i = 0;i<bulletCount;i++){
+			if(bullets[i] != null){
+				bullets[i].move();
+				bullets[i].draw();
 			}
 		}
-		// 這地方應該加入Fighter 血量顯示UI
-		
-	}
-	else if (state == GameState.END) {
+	
+
+		//bullets crush	
+	}else if (state == GameState.END) {
 		bg.draw();
 	}
 }
