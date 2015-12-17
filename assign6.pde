@@ -151,7 +151,7 @@ void keyReleased(){
 		treasure = new Treasure();
 		fighter = new Fighter(20);
       default : break ;
-    }
+    } 
   }
 }
 
